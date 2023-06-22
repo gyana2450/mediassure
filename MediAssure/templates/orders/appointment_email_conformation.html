@@ -1,0 +1,24 @@
+{% autoescape off %}
+  Hi {{order.fullname}},
+      
+      You appointment has been confirmed with below hospital. kindly visit comming 9AM.
+
+      {% for cart_item in cart_items%}
+      Hospital Name: {{cart_item.product.product_name}}
+      No Of Appintment: {{cart_item.quantity}}
+      Disease : {{cart_item.product.catagory}}
+      Hospital address :{{cart_item.product_address}}
+      {%endfor%}
+
+      Patient Details:
+
+      Name of the patient: {{order.fullname}}
+      Address: {{order.city}}, {{order.state}},{{order.country}},{{order.pin_code}},{{order.phone}}
+      Appointment status: {{order.status}}
+
+    Thanks & Regards,
+    Medical Dept.
+
+      
+  if you think its not you please ignore this email
+{% endautoescape %}

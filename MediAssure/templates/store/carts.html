@@ -1,0 +1,107 @@
+{% extends 'base.html'%}
+{% load static%}
+
+{% block content%}
+
+{% include 'includes/navbar.html'%}
+
+
+<section class="section-content padding-y bg">
+<div class="container">
+{% if  not cart_items%}
+<!-- ============================ COMPONENT 1 ================================= -->
+<h2 class="text-center">Your Cart Is Empty</h2>
+<div class="text-center">
+	<a href="{% url 'store' %}" class="btn btn-primary text-center"> Select The Hospital </a>
+</div>
+{% else%}
+<div class="row">
+
+	<aside class="col-lg-9">
+<div class="card">
+<table class="table table-borderless table-shopping-cart">
+<thead class="text-muted">
+<tr class="small text-uppercase">
+  <th scope="col">Hospital Name</th>
+  <th scope="col" width="120">Quantity</th>
+  <th scope="col" width="120">Disease</th>
+  <th scope="col" class="text-right" width="200"> </th>
+</tr>
+</thead>
+<tbody>
+	{% for cart_item in cart_items%}
+<tr>
+	<td>
+		<figure class="itemside align-items-center">
+			<div class="aside"><img src="{{cart_item.product.image.url}}" class="img-sm"></div>
+			<figcaption class="info">
+				<a href="{{cart_item.product.get_url}}" class="title text-dark" >{{cart_item.product.product_name}}</a>
+				
+			</figcaption>
+		</figure>
+	</td>
+	<td>
+		<!-- col.// -->
+					<div class="col">
+						<div class="input-group input-spinner">
+							<div class="input-group-prepend">
+							<a href="{% url 'remove_cart' cart_item.product.id %}" class="btn btn-light" type="button" id="button-plus"> <i class="fa fa-minus"></i> </a>
+							</div>
+							<input type="text" class="form-control"  value="{{cart_item.quantity}}">
+							
+						</div> <!-- input-group.// -->
+					</div> <!-- col.// -->
+	</td>
+	<td>
+		<div class="price-wrap">
+			<var class="price">{{cart_item.product.catagory}}</var>
+					</div> <!-- price-wrap .// -->
+	</td>
+	<td class="text-right">
+	<a href="{% url 'remove_cart_item' cart_item.product.id %}" class="btn btn-danger"> Remove</a>
+	</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div> <!-- card.// -->
+
+	</aside> <!-- col.// -->
+	<aside class="col-lg-3">
+		{% for cart_item in cart_items%}
+
+		<div class="card">
+		<div class="card-body">
+			<dl class="dlist-align">
+			  <dt>User Name:</dt>
+			  <dd class="text-right">{{cart_item.user}}</dd>
+			</dl>
+			<dl class="dlist-align">
+			  <dt>Disease Name:</dt>
+			  <dd class="text-right"> {{cart_item.product.catagory}}</dd>
+			</dl>
+			<dl class="dlist-align">
+			  <dt>Hospital Name:</dt>
+			  <dd class="text-right text-dark b"><strong>{{cart_item.product.product_name}}</strong></dd>
+			</dl>
+			<hr>
+			<p class="text-center mb-3">
+				Click Below for Booking
+			</p>
+			<a href="{% url 'checkout'%}" class="btn btn-primary btn-block"> Book</a>
+			<a href="{% url 'remove_cart_item' cart_item.product.id %}" class="btn btn-light btn-block">Cancel</a>
+		</div> <!-- card-body.// -->
+		</div> <!-- card.// -->
+		{% endfor%}
+</aside> <!-- col.// -->
+
+
+</div> <!-- row.// -->
+<!-- ============================ COMPONENT 1 END .// ================================= -->
+{% endif %}
+</div> <!-- container .//  -->
+</section>
+
+{% include 'includes/footer.html'%}
+
+{% endblock%}

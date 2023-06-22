@@ -1,0 +1,55 @@
+{% extends 'base.html'%}
+{% load static%}
+
+{% block content%}
+
+{% include 'includes/navbar.html'%}
+{% include 'includes/alerts.html'%}
+
+<section class="section-conten padding-y bg">
+
+<div class="container">
+	<div class="row">
+	{% include 'includes/dashboard_slidebar.html'%}
+	<main class="col-md-9">
+		<article class="card">
+		<header class="card-header">
+			<h5 class="card-title">My Order History</h5>
+		</header>
+		<div class="card-body">
+			<div class="row">
+        <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ReferenceId#</th>
+      <th scope="col">Person Name</th>
+      <th scope="col">Phone</th>
+  
+      <th scope="col">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in order%}
+    <tr>
+      <th scope="row"><a href="{% url 'order_details' item.order_number %}">{{item.order_number}}</a></th>
+      <td>{{item.fullname}}</td>
+      <td>{{item.phone}}</td>
+
+      <td>{{item.created_at}}</td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+			</div> <!-- row.// -->
+		</div> <!-- card-body .// -->
+
+		</article> <!-- order-group.// -->
+	</main>
+</div> <!-- row.// -->
+</div>
+
+
+</section>
+
+{% include 'includes/footer.html'%}
+{% endblock%}

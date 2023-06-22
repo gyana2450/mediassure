@@ -1,0 +1,60 @@
+{% extends 'base.html'%}
+{% load static%}
+
+{% block content%}
+
+{% include 'includes/navbar.html'%}
+{% include 'includes/alerts.html'%}
+
+<section class="section-conten padding-y bg">
+
+<div class="container">
+	<div class="row">
+	{% include 'includes/dashboard_slidebar.html'%}
+	<main class="col-md-9">
+		<article class="card">
+		<header class="card-header">
+			<strong class="d-inline-block mr-3">Logged In As:</strong>
+			<span>{{user.username}}</span>
+		</header>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="card" style="text-align:center;">
+						<div class="card-body">
+							<h5 class="card-title">Total Orders</h5>
+							<h4>{{order_count}}</h4>
+							<a href="{% url 'my_orders'%}">View Orders</a>
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="col-md-4">
+					<div class="card" style="text-align:center;">
+						<div class="card-body">
+							<img src="{{user_profile.profile_picture.url}}" alt=" User Profile Picture" width="50" height="50" style="border-radius:50%">
+							<br><br>
+							<p>{{user.email}}<br>({{user.username}})</p>
+
+
+						</div>
+
+					</div>
+
+
+			</div> <!-- row.// -->
+		</div> <!-- card-body .// -->
+
+		</article> <!-- order-group.// -->
+	</main>
+</div> <!-- row.// -->
+</div>
+
+
+</section>
+
+{% include 'includes/footer.html'%}
+{% endblock%}

@@ -1,0 +1,115 @@
+{% extends 'base.html'%}
+{% load static%}
+
+{% block content%}
+
+{% include 'includes/navbar.html'%}
+
+<section class="section-content padding-y bg">
+<div class="container">
+
+<!-- ============================ COMPONENT 1 ================================= -->
+<div class="card">
+	<div class="row no-gutters">
+		<aside class="col-md-6">
+<article class="gallery-wrap">
+	<div class="img-big-wrap">
+	   <a href="#"><img src="{{single_product.image.url}}"></a>
+	</div> <!-- img-big-wrap.// -->
+
+</article> <!-- gallery-wrap .end// -->
+		</aside>
+		<main class="col-md-6 border-left">
+<article class="content-body">
+
+<h2 class="title" style="text-align: center;"><span style="color: red;">{{single_product.product_name}}</span></h2>
+
+
+<div class="mb-3" style="text-align: center;">
+	
+	<var class="price h4">Appointment Availability :<span style="color: red">{{single_product.stock}}</span></var>
+</div>
+
+<p>{{single_product.description}}</p>
+
+
+<hr>
+
+
+<div style="display: inline;">
+	<p style="display: inline;">Estimated Cost For the Treatment:</p>
+	<h5 style="display: inline;">{{single_product.price}}</h5>
+</div>  
+
+<hr>
+
+{% if single_product.stock <= 0 %}
+<h5 class="text-danger">Opps, Appointment Not Available. Try Tomorrow.</h5>
+
+{% else %}
+{% if in_cart%}
+<a href="" class="btn  btn-success"> <span class="text">Added to Cart</span> <i class="fas fa-check"></i>  </a>
+<a href="{% url 'carts'%}" class="btn  btn-outline-primary"> <span class="text">View  Cart</span> <i class="fas fa-eye"></i>  </a>
+{%else %}
+<a href="{% url 'add_cart' single_product.id %}" class="btn  btn-primary"> <span class="text">Book Appointment</span> <i class="fas fa-shopping-cart"></i>  </a>
+{% endif%}
+{% endif %}
+
+<p>{{" "}}</p>
+{% comment %} <p>{{single_product.address}}</p> {% endcomment %}
+<a href="{{ single_product.address }}" target="_blank">View on Google Maps</a>
+
+</article> <!-- product-info-aside .// -->
+</main> <!-- col.// -->
+</div> <!-- row.// -->
+</div> <!-- card.// -->
+<!-- ============================ COMPONENT 1 END .// ================================= -->
+
+<br>
+
+<div class="row">
+			<div class="col-md-9">
+
+	<header class="section-heading">
+		<h3>Customer Reviews </h3>
+
+	</header>
+{% for review in reviews%}
+	<article class="box mb-3">
+		
+		<div class="icontext w-100">
+			<img src="{{review.profile_pic.url}}" class="img-xs icon rounded-circle">
+			<div class="text">
+				<span class="date text-muted float-md-right">{{review.date}} </span>
+				<h6 class="mb-1">{{review.name}} </h6>
+
+			</div>
+		</div> <!-- icontext.// -->
+		<div class="mt-3">
+			<p>
+				{{review.comment}}
+
+			</p>
+			<div class="text">
+				<span class="date text-muted float-md-right">{{review.hospital_name}} </span>
+				
+			</div>
+		</div>
+		
+	</article>
+{%endfor%}
+
+
+	</div> <!-- col.// -->
+</div> <!-- row.// -->
+
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+
+{% include 'includes/footer.html'%}
+
+{% endblock%}

@@ -1,0 +1,25 @@
+{% autoescape off %}
+  Hi {{user.username}},
+
+Your order has been placed.
+
+Order Number:{{order.order_number}}.
+Total_price:{{order.order_total}}
+Product Will shift to Below location
+address:{{order.address_line_1}} | {{order.address_line_2}}
+city :{{order.city}}
+state :{{order.state}}
+contry:{{order.country}}
+Pin :{{order.pin_code}}, phone :{{order.phone}}, Email :{{order.email}}
+{% comment %} Hospital address :{{order.hospital_address}} {% endcomment %}
+Order will be delivered within 20 to 30 minutes.
+
+If Any query required Call to 8917652171. We are happy that you are our customer.
+
+
+Thanks,
+greatkart Team
+Good luck
+
+  if you think its not you please ignore this email
+{% endautoescape %}
